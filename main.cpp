@@ -12,13 +12,13 @@ int main(int argc, char* argv[])
 
     XNode node;
 
-    if(argc > 2) {
-        thread server_thread(&XNode::service, &node, 8888);
-        server_thread.detach();
-    } else {
+//    if(argc > 2) {
+//        thread server_thread(&XNode::service, &node, 8888);
+//        server_thread.detach();
+//    } else {
         thread server_thread(&XNode::service, &node, atoi(argv[1]));
         server_thread.detach();
-    }
+//    }
 
 
 

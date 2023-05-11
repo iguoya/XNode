@@ -28,6 +28,12 @@ void Server::run()
         socklen_t length = sizeof(client_address);
         int count = recvfrom(m_socket, buffer, buffer_length, 0, (struct sockaddr*)&client_address, &length);  //recvfrom是拥塞函数，没有数据就一直拥塞
 
+        json msg = json::parse(buffer);
+
+        cout<<msg["hello"]<<endl;
+
+
+
         printf("client receive:%s\n",buffer);  //打印client发过来的信息
         memset(buffer, 0, buffer_length);
         sprintf(buffer, "server: I have recieved %d bytes data!\n", count);  //回复client

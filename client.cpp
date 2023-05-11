@@ -27,7 +27,7 @@ void Client::connect(string ip, uint16_t port)
 void Client::run()
 {
     while(true) {
-        char buffer[1024] = "TEST UDP MSG!\n";
+        char buffer[1024] = "[\"hello\":\"wrold\"]";
         socklen_t addr_len = sizeof(m_address);
 
         printf("client:%s\n", buffer);  //打印自己发送的信息
@@ -35,7 +35,7 @@ void Client::run()
         memset(buffer, 0, sizeof(buffer));
         recvfrom(m_socket, buffer, sizeof(buffer), 0, (struct sockaddr*)&server_address, &addr_len);  //接收来自server的信息
         printf("server:%s\n", buffer);
-        sleep(1);  //一秒发送一次消息
+        sleep(2);  //一秒发送一次消息
     }
 
 
