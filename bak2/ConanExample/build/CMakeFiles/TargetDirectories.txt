@@ -1,0 +1,3 @@
+/home/tiger/XNode/ConanExample/build/CMakeFiles/compressor.dir
+/home/tiger/XNode/ConanExample/build/CMakeFiles/edit_cache.dir
+/home/tiger/XNode/ConanExample/build/CMakeFiles/rebuild_cache.dir

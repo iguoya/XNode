@@ -1,0 +1,4 @@
+/home/tiger/Practice/XNode/build-Monitor-unknown-Debug/CMakeFiles/Monitor.dir
+/home/tiger/Practice/XNode/build-Monitor-unknown-Debug/CMakeFiles/edit_cache.dir
+/home/tiger/Practice/XNode/build-Monitor-unknown-Debug/CMakeFiles/rebuild_cache.dir
+/home/tiger/Practice/XNode/build-Monitor-unknown-Debug/CMakeFiles/Monitor_autogen.dir

@@ -1,0 +1,3 @@
+/home/tiger/XNode/compressor/build/CMakeFiles/compressor.dir
+/home/tiger/XNode/compressor/build/CMakeFiles/edit_cache.dir
+/home/tiger/XNode/compressor/build/CMakeFiles/rebuild_cache.dir

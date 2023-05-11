@@ -1,0 +1,1 @@
+/usr/bin/cc -m64 -O3 -DNDEBUG -m64 CMakeFiles/compressor.dir/main.c.o -o compressor   -L/home/tiger/.conan2/p/zlib9fae94f9923cb/p/lib  -Wl,-rpath,/home/tiger/.conan2/p/zlib9fae94f9923cb/p/lib /home/tiger/.conan2/p/zlib9fae94f9923cb/p/lib/libz.a 

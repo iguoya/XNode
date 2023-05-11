@@ -1,0 +1,3 @@
+/home/tiger/XNode/build-BuildExample-unknown-Debug/CMakeFiles/BuildExample.dir
+/home/tiger/XNode/build-BuildExample-unknown-Debug/CMakeFiles/edit_cache.dir
+/home/tiger/XNode/build-BuildExample-unknown-Debug/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,1 @@
+/usr/bin/gcc -g CMakeFiles/BuildExample.dir/main.c.o -o BuildExample 

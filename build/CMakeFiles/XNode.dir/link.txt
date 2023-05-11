@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/XNode.dir/main.cpp.o CMakeFiles/XNode.dir/xnode.cpp.o CMakeFiles/XNode.dir/server.cpp.o CMakeFiles/XNode.dir/client.cpp.o -o XNode 

@@ -1,0 +1,1 @@
+/usr/bin/gcc -g CMakeFiles/compressor.dir/main.c.o -o compressor  /usr/lib/x86_64-linux-gnu/libz.so 
