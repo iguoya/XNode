@@ -5,7 +5,6 @@
 
 using namespace std;
 
-
 int main(int argc, char* argv[])
 {
     //    std::cout << std::setw(4) << json::meta() << std::endl;
@@ -34,30 +33,25 @@ int main(int argc, char* argv[])
         )";
         auto c = json::parse(cmd);
         //    cout<<json::parse(cmd).dump(4)<<endl;
+        //cout<<c["content"]<<endl;
+
 
         vector<thread*> clients;
 
-        cout<<c["content"]<<endl;
         for(auto group : c["group"]) {
             cout<<group["ip"]<<"\t"<<group["port"]<<endl;
-            thread* client = new thread(&XNode::contact, &node, group["ip"], group["port"]);
-            client->detach();
-            sleep(5);
-            clients.push_back(client);
+            thread client_connect(&XNode::contact, &node, group["ip"], group["port"]);
+            client_connect.detach();
+            sleep(3);
+//            thread* client = new thread(&XNode::contact, &node, group["ip"], group["port"]);
+//            client->detach();
+//            sleep(5);
+//            clients.push_back(client);
         }
     }
-    //    if(argc > 4 && argc <= 6) {
-    //        thread client_thread(&XNode::contact, &node, argv[4], atoi(argv[5]));
-    //        client_thread.detach();
-    //    }
 
 
-    //    for(const auto &client : node.clients) {
-    //        thread client_thread(&XNode::contact, &node);
-    //        client_thread.detach();
-    //    }
-
-    sleep(600);
+    sleep(6000);
 
 
     return 0;
