@@ -27,15 +27,20 @@ void Server::run()
         socklen_t length = sizeof(client_address);
         int count = recvfrom(m_socket, buffer, buffer_length, 0, (struct sockaddr*)&client_address, &length);  //recvfrom是拥塞函数，没有数据就一直拥塞
 
-//        json msg = json::parse(buffer);
+        json command = json::parse(buffer);
 
-//        if(msg["connect"])
+        cout<<command["type"]<<endl;
+        if(command["type"] == "contact") {
 
-//        cout<<msg["name"]<<endl;
-        cout<<buffer<<endl;
+        }
+
 
         printf("client send:%s\n", buffer);  //打印client发过来的信息
+
+
+
         memset(buffer, 0, buffer_length);
+
         sprintf(buffer, "server: I have recieved %d bytes data!\n", count);  //回复client
         printf("server response:%s\n", buffer);  //打印自己发送的信息给
         sendto(m_socket, buffer, buffer_length, 0, (struct sockaddr*)&client_address, length);  //发送信息给client，注意使用了clent_addr结构体指针

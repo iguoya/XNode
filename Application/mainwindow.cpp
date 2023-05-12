@@ -25,7 +25,10 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    service.command("hello world 郭雅");
+    auto s = command.contact("A", {"B", "C", "D"});
+
+
+    service.command(QString::fromStdString(s));
 //    const QString cmd();
 //    const QStringList args;
 
