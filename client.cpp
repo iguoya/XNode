@@ -24,23 +24,23 @@ void Client::connect(string ip, uint16_t port)
     m_address.sin_port = htons(port);
 }
 
-void Client::run()
+void Client::run(string s)
 {
     //    while(true) {
     //        char buffer[1024] = "[\"hello\":\"wrold\"]";
 
     char buffer[500] = {0};
-    json j={
-        {"name","LeBorn Jame"},
-        {"number",23},
-        {"children",{"LeBorn Jr","Bryce Maximus","Zhuri"}},
-        {"man",true},
-        {"wife",{"name","Savannah Brinson"}}
-    };
+//    json j={
+//        {"name","LeBorn Jame"},
+//        {"number",23},
+//        {"children",{"LeBorn Jr","Bryce Maximus","Zhuri"}},
+//        {"man",true},
+//        {"wife",{"name","Savannah Brinson"}}
+//    };
 
 
     socklen_t addr_len = sizeof(m_address);
-    string s(j.dump().c_str());
+//    string s(j.dump().c_str());
 //    cout<<s<<endl;
 
     memcpy(buffer, s.c_str(), s.size());

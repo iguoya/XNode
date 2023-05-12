@@ -29,19 +29,12 @@ public:
 
     void operator()(string name, uint16_t port);
 
-
-    void contact(string ip, uint16_t port);
-
-
-//    vector<Client> clients;
 private:
 
-//    Server server;
-    Client client;
 
+    vector<Client*> clients;
     string name;
 
-private:
     int m_socket;
     struct sockaddr_in m_address;
     struct sockaddr_in m_peerAddress;
