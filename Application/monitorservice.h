@@ -2,8 +2,8 @@
 #define MONITORSERVICE_H
 
 #include <QObject>
-#include <QtNetwork/QHostAddress>
-#include <QtNetwork/QUdpSocket>
+//#include <QtNetwork/QHostAddress>
+//#include <QtNetwork/QUdpSocket>
 
 class MonitorService : public QObject
 {
@@ -13,7 +13,7 @@ public:
 
 signals:
 private:
-    QUdpSocket m_socket;
+//    QUdpSocket m_socket;
 };
 
 #endif // MONITORSERVICE_H

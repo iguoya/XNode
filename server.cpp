@@ -30,11 +30,10 @@ void Server::run()
 
         json msg = json::parse(buffer);
 
-        cout<<msg["hello"]<<endl;
+        cout<<msg["name"]<<endl;
+        cout<<buffer<<endl;
 
-
-
-        printf("client receive:%s\n",buffer);  //打印client发过来的信息
+        printf("client send:%s\n", buffer);  //打印client发过来的信息
         memset(buffer, 0, buffer_length);
         sprintf(buffer, "server: I have recieved %d bytes data!\n", count);  //回复client
         printf("server response:%s\n", buffer);  //打印自己发送的信息给

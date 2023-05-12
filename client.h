@@ -16,6 +16,10 @@
 #include <vector>
 #include <random>
 #include <fstream>
+#include <nlohmann/json.hpp>
+#include <iostream>
+
+using json = nlohmann::json;
 
 using namespace std;
 

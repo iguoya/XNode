@@ -26,17 +26,31 @@ void Client::connect(string ip, uint16_t port)
 
 void Client::run()
 {
-    while(true) {
-        char buffer[1024] = "[\"hello\":\"wrold\"]";
-        socklen_t addr_len = sizeof(m_address);
+    //    while(true) {
+    //        char buffer[1024] = "[\"hello\":\"wrold\"]";
 
-        printf("client:%s\n", buffer);  //打印自己发送的信息
-        sendto(m_socket, buffer, sizeof(buffer), 0, (struct sockaddr *)&m_address, addr_len);
-        memset(buffer, 0, sizeof(buffer));
-        recvfrom(m_socket, buffer, sizeof(buffer), 0, (struct sockaddr*)&server_address, &addr_len);  //接收来自server的信息
-        printf("server:%s\n", buffer);
-        sleep(2);  //一秒发送一次消息
-    }
+    char buffer[500] = {0};
+    json j={
+        {"name","LeBorn Jame"},
+        {"number",23},
+        {"children",{"LeBorn Jr","Bryce Maximus","Zhuri"}},
+        {"man",true},
+        {"wife",{"name","Savannah Brinson"}}
+    };
+
+
+    socklen_t addr_len = sizeof(m_address);
+    string s(j.dump().c_str());
+    cout<<s<<endl;
+
+    memcpy(buffer, s.c_str(), s.size());
+    printf("client:%s\n", buffer);  //打印自己发送的信息
+    sendto(m_socket, buffer, sizeof(buffer), 0, (struct sockaddr *)&m_address, addr_len);
+//    memset(buffer, 0, sizeof(buffer));
+    recvfrom(m_socket, buffer, sizeof(buffer), 0, (struct sockaddr*)&server_address, &addr_len);  //接收来自server的信息
+    printf("server:%s\n", buffer);
+    sleep(2);  //一秒发送一次消息
+    //    }
 
 
     //    for(auto i = 0; i < 10; ++i) {
@@ -75,8 +89,8 @@ string Client::generateMessage()
 void Client::request(string message)
 {
     //    cout<<"向服务器发送请求："<<message<<endl;
-//    Log log(m_name, count);
-//    log.setMessage(message);
+    //    Log log(m_name, count);
+    //    log.setMessage(message);
 
     //    strncpy(sendData, message.c_str(), message.size());
 
@@ -86,7 +100,7 @@ void Client::request(string message)
     //    cout<<log.time<<endl;
     //    cout<<log.source<<endl;
     //    cout<<log.message<<endl;
-//    sendLogs.push_back(log);
+    //    sendLogs.push_back(log);
 
     //    bzero(sendData, sizeof(sendData));
     //    message.clear();
@@ -101,25 +115,25 @@ void Client::response()
 
     //    cout<<"从服务器接收："<<receiveData<<endl;
 
-//    Log log("Server", ++count);
-//    log.setMessage(receiveData);
-//    receiveLogs.push_back(log);
+    //    Log log("Server", ++count);
+    //    log.setMessage(receiveData);
+    //    receiveLogs.push_back(log);
 
-//    bzero(receiveData, sizeof(receiveData));
+    //    bzero(receiveData, sizeof(receiveData));
 
 }
 
 void Client::writeLog(string fileName)
 {
-//    ofstream fout;
-//    fout.open(fileName);
-//    for(const auto &log : sendLogs) {
-//        fout<<log.number<<",\t"
-//           <<log.source<<",\t"
-//          <<log.time<<",\t"
-//         <<log.message<<endl;
-//    }
-//    fout.close();
+    //    ofstream fout;
+    //    fout.open(fileName);
+    //    for(const auto &log : sendLogs) {
+    //        fout<<log.number<<",\t"
+    //           <<log.source<<",\t"
+    //          <<log.time<<",\t"
+    //         <<log.message<<endl;
+    //    }
+    //    fout.close();
 }
 
 
