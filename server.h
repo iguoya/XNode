@@ -1,17 +1,7 @@
 #ifndef SERVER_H
 #define SERVER_H
 
-#include <iostream>
-#include <stdio.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <errno.h>
-#include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <string.h>
-#include <nlohmann/json.hpp>
-using json = nlohmann::json;
+
 
 using namespace std;
 

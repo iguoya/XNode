@@ -12,7 +12,7 @@ find_package(nlohmann_json REQUIRED)
 set(PROJECT_SOURCES
     main.cpp
     xnode.h xnode.cpp
-    server.h server.cpp
+#    server.h server.cpp
     client.h client.cpp
     message.h message.cpp
 #    command/connect.h command/connect.cpp
