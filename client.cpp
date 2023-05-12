@@ -41,7 +41,7 @@ void Client::run()
 
     socklen_t addr_len = sizeof(m_address);
     string s(j.dump().c_str());
-    cout<<s<<endl;
+//    cout<<s<<endl;
 
     memcpy(buffer, s.c_str(), s.size());
     printf("client:%s\n", buffer);  //打印自己发送的信息
