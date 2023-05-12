@@ -1,17 +1,24 @@
 #ifndef HOST_H
 #define HOST_H
 
-#include <QObject>
+//#include <QObject>
+#include <map>
+#include <string>
+using namespace std;
+
+struct HostInfo {
+    string ip;
+    uint16_t port;
+};
+
 class Host
 {
 public:
-    Host(QString app, QString ip, ushort port, QString name):
-        app(app), ip(ip), port(port), name(name){};
+    Host();
+    map<string, HostInfo> getHosts();
+private:
+    map<string, HostInfo> hosts;
 
-    QString app;
-    QString ip;
-    ushort port;
-    QString name;
 };
 
 #endif // HOST_H

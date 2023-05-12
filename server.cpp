@@ -3,7 +3,6 @@
 Server::Server()
 {
     m_socket = socket(PF_INET, SOCK_DGRAM, 0);
-
 }
 
 void Server::listen(uint16_t port)
@@ -28,9 +27,11 @@ void Server::run()
         socklen_t length = sizeof(client_address);
         int count = recvfrom(m_socket, buffer, buffer_length, 0, (struct sockaddr*)&client_address, &length);  //recvfrom是拥塞函数，没有数据就一直拥塞
 
-        json msg = json::parse(buffer);
+//        json msg = json::parse(buffer);
 
-        cout<<msg["name"]<<endl;
+//        if(msg["connect"])
+
+//        cout<<msg["name"]<<endl;
         cout<<buffer<<endl;
 
         printf("client send:%s\n", buffer);  //打印client发过来的信息

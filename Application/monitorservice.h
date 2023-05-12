@@ -2,18 +2,18 @@
 #define MONITORSERVICE_H
 
 #include <QObject>
-//#include <QtNetwork/QHostAddress>
-//#include <QtNetwork/QUdpSocket>
+#include <QtNetwork/QHostAddress>
+#include <QtNetwork/QUdpSocket>
 
 class MonitorService : public QObject
 {
     Q_OBJECT
 public:
     explicit MonitorService(QObject *parent = nullptr);
-
+    void command(QString cmd);
 signals:
 private:
-//    QUdpSocket m_socket;
+    QUdpSocket m_socket;
 };
 
 #endif // MONITORSERVICE_H

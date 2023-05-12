@@ -25,6 +25,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_pushButton_3_clicked()
 {
+    service.command("hello world 郭雅");
 //    const QString cmd();
 //    const QStringList args;
 

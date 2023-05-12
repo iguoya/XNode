@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QProcess>
 #include "host.h"
+#include "monitorservice.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -25,5 +26,6 @@ private:
     Ui::MainWindow *ui;
     QProcess process;
     QVector<Host> hosts;
+    MonitorService service;
 };
 #endif // MAINWINDOW_H
