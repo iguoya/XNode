@@ -56,3 +56,15 @@ void MainWindow::readStatus()
     ui->textEdit->append(process.readAll());
 }
 
+
+void MainWindow::on_pushButton_clicked()
+{
+
+
+    auto s = command.send_message(ui->textEdit->toPlainText().toStdString(),
+                                  ui->spinBox_times->value(), ui->spinBox_interval->value());
+
+
+    service.command(QString::fromStdString(s));
+}
+

@@ -359,7 +359,7 @@
           <item row="2" column="0">
            <widget class="QPushButton" name="pushButton">
             <property name="text">
-             <string>开始发送</string>
+             <string>发送消息</string>
             </property>
            </widget>
           </item>
@@ -392,7 +392,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBox_2">
+               <widget class="QSpinBox" name="spinBox_times">
                 <property name="value">
                  <number>10</number>
                 </property>
@@ -417,7 +417,7 @@
                </widget>
               </item>
               <item>
-               <widget class="QSpinBox" name="spinBox">
+               <widget class="QSpinBox" name="spinBox_interval">
                 <property name="maximum">
                  <number>1000</number>
                 </property>

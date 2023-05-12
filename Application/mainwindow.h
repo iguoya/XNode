@@ -23,6 +23,8 @@ private slots:
     void on_pushButton_3_clicked();
     void readStatus();
 
+    void on_pushButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     QProcess process;

@@ -32,3 +32,13 @@ string Command::contact(string client, vector<string> servers)
 
     return j.dump();
 }
+
+string Command::send_message(string msg, size_t times, size_t interval)
+{
+    json j;
+    j["type"] = "send";
+    j["message"] = json::parse(msg);
+    j["times"] = times;
+    j["interval"] = interval;
+    return j.dump();
+}

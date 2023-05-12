@@ -36,10 +36,18 @@ void XNode::operator()(string name, uint16_t port)
 
         cout<<buffer<<endl;
 
-        json command = json::parse(buffer);
+        printf("client send:%s\n", buffer);  //打印client发过来的信息
 
-        //        cout<<command["type"]<<endl;
-        if(command.contains("type")) {
+        string ss(buffer);
+        if(ss.find("type") == string::npos) {
+
+        } else {
+            json command = json::parse(buffer);
+
+            //        cout<<command["type"]<<endl;
+            if(!command.contains("type")) {
+                continue;
+            }
             if(command["type"] == "contact") {
 
                 vector<string> msgs {R"({"type":"hello"})", R"({"type":"world"})", R"({"type":"guoya"})"};
@@ -53,8 +61,7 @@ void XNode::operator()(string name, uint16_t port)
                     clients.push_back(client);
                     ++i;
                 }
-                clients[1]->run(R"({"type":"hello!!!!"})");
-                cout<<clients.size()<<endl;
+
                 //                    string cmd = R"(
                 //                        {
                 //                        "group": [
@@ -73,30 +80,26 @@ void XNode::operator()(string name, uint16_t port)
 
 
 
-                //                    for(auto group : c["group"]) {
-                //                        cout<<group["ip"]<<"\t"<<group["port"]<<endl;
-                //                        thread client_connect(&XNode::contact, &node, group["ip"], group["port"]);
-                //                        client_connect.detach();
-                //                        sleep(3);
-                //            thread* client = new thread(&XNode::contact, &node, group["ip"], group["port"]);
-                //            client->detach();
-                //            sleep(5);
-                //            clients.push_back(client);
-                //                    }
-                //                }
 
+            } else if(command["type"] == "send") {
+                for(auto i = 0; i < command["times"]; ++i) {
+                    for(auto client: clients) {
+                        client->run(command["message"]);
+                        usleep(size_t(command["interval"])*1000);
+                    }
+                }
+    //            clients[1]->run(R"({"type":"hello!!!!"})");
+    //            cout<<clients.size()<<endl;
             }
 
         }
 
 
-        printf("client send:%s\n", buffer);  //打印client发过来的信息
-
 
 
         memset(buffer, 0, buffer_length);
 
-        sprintf(buffer, "server: I have recieved %d bytes data!\n", count);  //回复client
+//        sprintf(buffer, "server: I have recieved %d bytes data!\n", count);  //回复client
         printf("server response:%s\n", buffer);  //打印自己发送的信息给
         sendto(m_socket, buffer, buffer_length, 0, (struct sockaddr*)&client_address, length);  //发送信息给client，注意使用了clent_addr结构体指针
     }

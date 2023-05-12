@@ -16,6 +16,10 @@ public:
     Command();
 
     string contact(string client, vector<string> servers);
+
+    string send_message(string msg, size_t times = 10000, size_t interval = 1000);
+
+
 private:
     map<string, pair<string, uint16_t>> hosts;
 };

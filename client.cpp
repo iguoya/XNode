@@ -49,7 +49,7 @@ void Client::run(string s)
 //    memset(buffer, 0, sizeof(buffer));
     recvfrom(m_socket, buffer, sizeof(buffer), 0, (struct sockaddr*)&server_address, &addr_len);  //接收来自server的信息
     printf("server:%s\n", buffer);
-    sleep(2);  //一秒发送一次消息
+//    sleep(2);  //一秒发送一次消息
     //    }
 
 
