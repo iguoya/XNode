@@ -35,7 +35,7 @@ public:
 
 
     void connect(string ip, uint16_t port);
-    void run(string s);
+    void send(string s);
 
     static size_t count;
 

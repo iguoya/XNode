@@ -52,7 +52,7 @@ void XNode::operator()(string name, uint16_t port)
                     cout<<server["ip"]<<server["port"]<<endl;
                     Client* client = new Client;
                     client->connect(server["ip"], server["port"]);
-                    client->run(msgs[i]);
+                    client->send(msgs[i]);
 
                     clients.push_back(client);
                     ++i;
@@ -80,7 +80,7 @@ void XNode::operator()(string name, uint16_t port)
             } else if(command["type"] == "send") {
                 for(auto i = 0; i < command["times"]; ++i) {
                     for(auto client: clients) {
-                        client->run(command["message"]);
+                        client->send(command["message"]);
                         usleep(size_t(command["interval"])*1000);
                     }
                 }
@@ -93,11 +93,10 @@ void XNode::operator()(string name, uint16_t port)
 
 
 
-        memset(buffer, 0, buffer_length);
-
+//        memset(buffer, 0, buffer_length);
 //        sprintf(buffer, "server: I have recieved %d bytes data!\n", count);  //回复client
-        printf("server response:%s\n", buffer);  //打印自己发送的信息给
-        sendto(m_socket, buffer, buffer_length, 0, (struct sockaddr*)&client_address, length);  //发送信息给client，注意使用了clent_addr结构体指针
+//        printf("server response:%s\n", buffer);  //打印自己发送的信息给
+//        sendto(m_socket, buffer, buffer_length, 0, (struct sockaddr*)&client_address, length);  //发送信息给client，注意使用了clent_addr结构体指针
     }
 }
 

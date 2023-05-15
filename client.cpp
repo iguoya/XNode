@@ -24,7 +24,7 @@ void Client::connect(string ip, uint16_t port)
     m_address.sin_port = htons(port);
 }
 
-void Client::run(string s)
+void Client::send(string s)
 {
     //    while(true) {
     //        char buffer[1024] = "[\"hello\":\"wrold\"]";
