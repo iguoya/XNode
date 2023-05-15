@@ -16,9 +16,6 @@ void XNode::listen(uint16_t port)
     m_address.sin_family = AF_INET;
     m_address.sin_addr.s_addr = htonl(INADDR_ANY);
     m_address.sin_port = htons(port);
-
-    //    char msg[30] = {0};
-    //    sprintf(msg, "监听 %d 端口 .....\n", port);
     cout<< "服务器名字:"<< name<<", 监听端口: "<<port<<endl;
     bind(m_socket, (struct sockaddr *)&m_address, sizeof(m_address));
 }
@@ -44,7 +41,6 @@ void XNode::operator()(string name, uint16_t port)
         } else {
             json command = json::parse(buffer);
 
-            //        cout<<command["type"]<<endl;
             if(!command.contains("type")) {
                 continue;
             }

@@ -37,7 +37,8 @@ string Command::send_message(string msg, size_t times, size_t interval)
 {
     json j;
     j["type"] = "send";
-    j["message"] = json::parse(msg);
+//    j["message"] = json::parse(msg);
+    j["message"] = msg;
     j["times"] = times;
     j["interval"] = interval;
     return j.dump();
