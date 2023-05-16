@@ -1,5 +1,7 @@
 #include "xnode.h"
 
+size_t XNode::serialNumber;
+
 XNode::XNode()
 {
     m_socket = socket(PF_INET, SOCK_DGRAM, 0);
@@ -46,13 +48,17 @@ void XNode::operator()(string name, uint16_t port)
             }
             if(command["type"] == "contact") {
 
-                vector<string> msgs {R"({"type":"hello"})", R"({"type":"world"})", R"({"type":"guoya"})"};
+                vector<string> greets {R"({"type":"hello"})", R"({"type":"world"})", R"({"type":"guoya"})"};
                 int i = 0;
                 for(auto server: command["contacts"]) {
                     cout<<server["ip"]<<server["port"]<<endl;
                     Client* client = new Client;
                     client->connect(server["ip"], server["port"]);
-                    client->send(msgs[i]);
+                    client->receiver = server["name"];
+
+                    client->send(greets[i]);
+
+                    //                    client->send(server["name"].get<string>()+":"+greets[i]);
 
                     clients.push_back(client);
                     ++i;
@@ -78,14 +84,31 @@ void XNode::operator()(string name, uint16_t port)
 
 
             } else if(command["type"] == "send") {
+
+
                 for(auto i = 0; i < command["times"]; ++i) {
                     for(auto client: clients) {
-                        client->send(command["message"]);
-                        usleep(size_t(command["interval"])*1000);
+                        ++serialNumber;
+
+                        json message;
+                        message["id"] = serialNumber;
+                        message["sender"] = name;
+                        message["receiver"] = client->receiver;
+                        message["sequence"] = i+1;
+                        message["time"] = getCurrentTime();
+
+                        message["content"] = command["content"];
+
+                        client->send(message.dump());
+
+
+
+
+                        usleep(command["interval"].get<uint64_t>()*1000);
                     }
                 }
-    //            clients[1]->run(R"({"type":"hello!!!!"})");
-    //            cout<<clients.size()<<endl;
+                //            clients[1]->run(R"({"type":"hello!!!!"})");
+                //            cout<<clients.size()<<endl;
             }
 
         }
@@ -93,10 +116,35 @@ void XNode::operator()(string name, uint16_t port)
 
 
 
-//        memset(buffer, 0, buffer_length);
-//        sprintf(buffer, "server: I have recieved %d bytes data!\n", count);  //回复client
-//        printf("server response:%s\n", buffer);  //打印自己发送的信息给
-//        sendto(m_socket, buffer, buffer_length, 0, (struct sockaddr*)&client_address, length);  //发送信息给client，注意使用了clent_addr结构体指针
+        //        memset(buffer, 0, buffer_length);
+        //        sprintf(buffer, "server: I have recieved %d bytes data!\n", count);  //回复client
+        //        printf("server response:%s\n", buffer);  //打印自己发送的信息给
+        //        sendto(m_socket, buffer, buffer_length, 0, (struct sockaddr*)&client_address, length);  //发送信息给client，注意使用了clent_addr结构体指针
+    }
+}
+
+string XNode::getCurrentTime()
+{
+    string defaultTime = "19700101000000000";
+    try
+    {
+        struct timeval curTime;
+        gettimeofday(&curTime, NULL);
+        int milli = curTime.tv_usec / 1000;
+
+        char buffer[80] = {0};
+        struct tm nowTime;
+        localtime_r(&curTime.tv_sec, &nowTime);//把得到的值存入临时分配的内存中，线程安全
+        strftime(buffer, sizeof(buffer), "%Y%m%d%H%M%S", &nowTime);
+
+        char currentTime[84] = {0};
+        snprintf(currentTime, sizeof(currentTime), "%s_%03d", buffer, milli);
+
+        return currentTime;
+    }
+    catch (...)
+    {
+        return defaultTime;
     }
 }
 

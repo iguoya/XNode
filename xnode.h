@@ -10,6 +10,7 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <sys/time.h>
 //#include <linux/delay.h>
 
 #include "client.h"
@@ -31,7 +32,9 @@ public:
 
 private:
 
+    string getCurrentTime();
 
+    static size_t serialNumber;
     vector<Client*> clients;
     string name;
 

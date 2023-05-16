@@ -38,8 +38,10 @@ public:
     void send(string s);
 
     static size_t count;
+    string receiver;
 
 private:
+
 
     string generateMessage();
     void request(string message);

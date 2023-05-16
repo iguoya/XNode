@@ -29,7 +29,7 @@ void Client::send(string s)
     //    while(true) {
     //        char buffer[1024] = "[\"hello\":\"wrold\"]";
 
-    char buffer[500] = {0};
+    char buffer[1024] = {0};
 //    json j={
 //        {"name","LeBorn Jame"},
 //        {"number",23},
@@ -37,6 +37,7 @@ void Client::send(string s)
 //        {"man",true},
 //        {"wife",{"name","Savannah Brinson"}}
 //    };
+
 
 
     socklen_t addr_len = sizeof(m_address);
@@ -47,8 +48,10 @@ void Client::send(string s)
     printf("client:%s\n", buffer);  //打印自己发送的信息
     sendto(m_socket, buffer, sizeof(buffer), 0, (struct sockaddr *)&m_address, addr_len);
 //    memset(buffer, 0, sizeof(buffer));
-    recvfrom(m_socket, buffer, sizeof(buffer), 0, (struct sockaddr*)&server_address, &addr_len);  //接收来自server的信息
-    printf("server:%s\n", buffer);
+
+
+//    recvfrom(m_socket, buffer, sizeof(buffer), 0, (struct sockaddr*)&server_address, &addr_len);  //接收来自server的信息
+//    printf("server:%s\n", buffer);
 //    sleep(2);  //一秒发送一次消息
     //    }
 

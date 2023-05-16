@@ -6,6 +6,13 @@
 #include "host.h"
 #include "monitorservice.h"
 #include "command.h"
+#include <iostream>
+#include <QStandardItemModel>
+#include <QMap>
+
+#include <nlohmann/json.hpp>
+using json = nlohmann::json;
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -19,6 +26,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    string contact(QString client, vector<QString> servers);
+
+    string send_message(QString msg, size_t times = 10000, size_t interval = 1000);
+
+
 private slots:
     void on_pushButton_3_clicked();
     void readStatus();
@@ -27,9 +39,10 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+    QStandardItemModel model;
     QProcess process;
-    QVector<Host> hosts;
+//    QVector<Host> hosts;
     MonitorService service;
-    Command command;
+    QMap<QString, pair<QString, uint16_t>> hosts;
 };
 #endif // MAINWINDOW_H

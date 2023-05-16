@@ -14,7 +14,7 @@
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <layout class="QGridLayout" name="gridLayout_9">
+   <layout class="QGridLayout" name="gridLayout_9" rowstretch="2,5">
     <item row="0" column="0" rowspan="2">
      <widget class="QFrame" name="frame">
       <property name="frameShape">
@@ -458,8 +458,18 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>1</number>
+          <number>0</number>
          </property>
+         <widget class="QWidget" name="tab_3">
+          <attribute name="title">
+           <string>命令记录</string>
+          </attribute>
+          <layout class="QGridLayout" name="gridLayout_10">
+           <item row="0" column="0">
+            <widget class="QTableView" name="tableView"/>
+           </item>
+          </layout>
+         </widget>
          <widget class="QWidget" name="tab">
           <attribute name="title">
            <string>发送记录</string>
@@ -508,6 +518,12 @@
           <layout class="QGridLayout" name="gridLayout_6">
            <item row="0" column="0">
             <widget class="QTableWidget" name="tableWidget">
+             <attribute name="horizontalHeaderCascadingSectionResizes">
+              <bool>false</bool>
+             </attribute>
+             <attribute name="verticalHeaderCascadingSectionResizes">
+              <bool>false</bool>
+             </attribute>
              <column>
               <property name="text">
                <string>编号</string>

@@ -5,7 +5,6 @@ MonitorService::MonitorService(QObject *parent)
 {
 //    m_socket = new QUdpSocket(this);
 //    m_socket.bind(4321);
-
 }
 
 void MonitorService::command(QString cmd)
