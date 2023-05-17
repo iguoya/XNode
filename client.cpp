@@ -15,8 +15,6 @@ Client::~Client()
     close(m_socket);
 }
 
-
-
 void Client::connect(string ip, uint16_t port)
 {
     m_address.sin_family = AF_INET;

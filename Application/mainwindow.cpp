@@ -7,6 +7,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(&process, &QProcess::readyRead, this, &MainWindow::readStatus);
+    connect(&service, &MonitorService::handleResult, ui->textEdit, &QTextEdit::append);
 
     model.setHorizontalHeaderLabels({"执行者", "IP", "端口", "任务类型", "指令内容"});
     ui->tableView->setModel(&model);
@@ -47,7 +48,7 @@ void MainWindow::on_pushButton_3_clicked()
     auto s = contact("A", {"B", "C", "D"});
 
 
-    service.command(QString::fromStdString(s));
+    service.send(QString::fromStdString(s));
     //    const QString cmd();
     //    const QStringList args;
 
@@ -82,7 +83,7 @@ void MainWindow::on_pushButton_clicked()
     auto s = send_message(ui->textEdit->toPlainText(),
                           ui->spinBox_times->value(), ui->spinBox_interval->value());
 
-    service.command(QString::fromStdString(s));
+    service.send(QString::fromStdString(s));
 }
 
 

@@ -12,7 +12,7 @@
 #include <string.h>
 #include <sys/time.h>
 //#include <linux/delay.h>
-
+#include "reporter.h"
 #include "client.h"
 #include <nlohmann/json.hpp>
 using json = nlohmann::json;
@@ -36,6 +36,8 @@ private:
 
     static size_t serialNumber;
     vector<Client*> clients;
+    Reporter reporter;
+
     string name;
 
     int m_socket;

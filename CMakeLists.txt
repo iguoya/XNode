@@ -12,18 +12,19 @@ find_package(nlohmann_json REQUIRED)
 set(PROJECT_SOURCES
     main.cpp
     xnode.h xnode.cpp
-#    server.h server.cpp
+    #    server.h server.cpp
     client.h client.cpp
     message.h message.cpp
-#    command/connect.h command/connect.cpp
+    #    command/connect.h command/connect.cpp
     command.h command.cpp
-#    config.json
-#    conanfile.txt
-)
+    reporter.h reporter.cpp
+    #    config.json
+    #    conanfile.txt
+    )
 
 add_executable(XNode
     ${PROJECT_SOURCES}
-)
+    )
 
 #include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 #conan_basic_setup()

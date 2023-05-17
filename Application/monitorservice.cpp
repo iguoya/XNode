@@ -3,11 +3,21 @@
 MonitorService::MonitorService(QObject *parent)
     : QObject{parent}
 {
-//    m_socket = new QUdpSocket(this);
-//    m_socket.bind(4321);
+    server.bind(QHostAddress::Any, 8888);
+    connect(&server, &QUdpSocket::readyRead, this, &MonitorService::readRead);
 }
 
-void MonitorService::command(QString cmd)
+
+void MonitorService::send(QString cmd, QString ip, ushort port)
 {
-    m_socket.writeDatagram(cmd.toUtf8(), QHostAddress("127.0.0.1"), 10000);
+    client.writeDatagram(cmd.toUtf8(), QHostAddress(ip), port);
+}
+
+void MonitorService::readRead()
+{
+    QByteArray result;
+    result.resize(server.bytesAvailable());
+    server.readDatagram(result.data(),result.size());
+    handleResult(QString(result));
+//    ui->lineEdit->setText(arr);
 }

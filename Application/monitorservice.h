@@ -10,10 +10,20 @@ class MonitorService : public QObject
     Q_OBJECT
 public:
     explicit MonitorService(QObject *parent = nullptr);
-    void command(QString cmd);
+    void send(QString cmd, QString ip = "127.0.0.1", ushort port = 10000);
+
 signals:
+    void handleResult(QString result);
+
+public slots:
+
+    void readRead();
+
 private:
-    QUdpSocket m_socket;
+    QUdpSocket client;
+    QUdpSocket server;
 };
+
+
 
 #endif // MONITORSERVICE_H

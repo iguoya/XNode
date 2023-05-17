@@ -47,19 +47,16 @@ void XNode::operator()(string name, uint16_t port)
                 continue;
             }
             if(command["type"] == "contact") {
-
                 vector<string> greets {R"({"type":"hello"})", R"({"type":"world"})", R"({"type":"guoya"})"};
                 int i = 0;
                 for(auto server: command["contacts"]) {
+
                     cout<<server["ip"]<<server["port"]<<endl;
                     Client* client = new Client;
                     client->connect(server["ip"], server["port"]);
                     client->receiver = server["name"];
-
+                    reporter.send(name+" 跟节点"+client->receiver+"建立连接，打招呼："+greets[i]);
                     client->send(greets[i]);
-
-                    //                    client->send(server["name"].get<string>()+":"+greets[i]);
-
                     clients.push_back(client);
                     ++i;
                 }
