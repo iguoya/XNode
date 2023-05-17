@@ -8,33 +8,14 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
     connect(&process, &QProcess::readyRead, this, &MainWindow::readStatus);
 
-//    model.setColumnCount(1000);
     model.setHorizontalHeaderLabels({"执行者", "IP", "端口", "任务类型", "指令内容"});
     ui->tableView->setModel(&model);
 
-
-//    ui->tableWidget_3->setRowCount(100);
-
-    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);    //填充表格
-
-//    ui->tableWidget_3->horizontalHeader()->setSectionResizeMode(5, QHeaderView::ResizeToContents);   //然后设置要根据内容使用宽度的列（其他没设置的列自动缩放）
-//编号
-
-//    ui->tableWidget_3->setItem(0,0,new QTableWidgetItem("张飞"));
-//    ui->tableWidget_3->setItem(0,1,new QTableWidgetItem("关羽"));
-//    ui->tableWidget_3->setItem(0,2,new QTableWidgetItem("吕布"));
-//    ui->tableWidget_3->setItem(0,3,new QTableWidgetItem("吕布"));
-//    ui->tableWidget_3->setItem(0,4,new QTableWidgetItem("吕布"));
-//    ui->tableWidget_3->setItem(0,5,new QTableWidgetItem("吕布吕布吕布吕布吕布吕吕布吕布吕布吕布吕布吕布吕布"));
-
-//    ui->tableWidget_3->setItem(1,0,new QTableWidgetItem("35"));
-//    ui->tableWidget_3->setItem(1,1,new QTableWidgetItem("36"));
-//    ui->tableWidget_3->setItem(1,2,new QTableWidgetItem("32"));
-//    ui->tableWidget_3->setItem(1,3,new QTableWidgetItem("32"));
-//    ui->tableWidget_3->setItem(1,4,new QTableWidgetItem("32"));
-//    ui->tableWidget_3->setItem(1,5,new QTableWidgetItem("32"));
-
-
+//    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+//    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);    //填充表格
+//     ui->tableView->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
+//     ui->tableView->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
+//    ui->tableView->resizeColumnsToContents();
 
     hosts = {
         {
@@ -50,11 +31,6 @@ MainWindow::MainWindow(QWidget *parent)
             "D", {"127.0.0.1", 10003}
         }
     };
-
-    //    hosts {
-    //        {"", , 8887, "A"},
-    //    };
-
     //    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     //    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//平均分配列宽
     //    ui->treeWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
@@ -122,16 +98,14 @@ string MainWindow::contact(QString client, vector<QString> servers)
         j["contacts"][i]["ip"] = hosts[servers[i]].first.toStdString();
         j["contacts"][i]["port"] = hosts[servers[i]].second;
     }
-//    model.setHorizontalHeaderLabels({"执行者", "IP", "端口", "任务类型", "指令内容"});
-    model.appendRow({new QStandardItem(client),
-                     new QStandardItem(hosts[client].first),
-                     new QStandardItem(QString::number(hosts[client].second)),
-                    new QStandardItem("contact"),
-                     new QStandardItem("SSSSSSSSSSSSSSSS")});
-//    model.item(5,1)->setText("123");
-//    model.item(4,1)->setText("123");
-//    ui->tableWidget_3->setItem(0, 0, new QTableWidgetItem("hello  ddddd"));
-//    ui->tableWidget_3->show();
+    //    model.setHorizontalHeaderLabels({"执行者", "IP", "端口", "任务类型", "指令内容"});
+    model.appendRow({
+                        new QStandardItem(client),
+                        new QStandardItem(hosts[client].first),
+                        new QStandardItem(QString::number(hosts[client].second)),
+                        new QStandardItem("建立节点连接"),
+                        new QStandardItem(QString::fromStdString(j.dump()))
+                    });
     return j.dump();
 }
 
@@ -143,6 +117,15 @@ string MainWindow::send_message(QString content, size_t times, size_t interval)
     j["content"] = content.toStdString();
     j["times"] = times;
     j["interval"] = interval;
+
+    model.appendRow({
+                        new QStandardItem("A"),
+                        new QStandardItem("127.0.0.1"),
+                        new QStandardItem("10000"),
+                        new QStandardItem("节点间发送消息"),
+                        new QStandardItem(QString::fromStdString(j.dump()))
+                    });
+
     return j.dump();
 }
 
