@@ -458,7 +458,7 @@
        <item row="0" column="0">
         <widget class="QTabWidget" name="tabWidget">
          <property name="currentIndex">
-          <number>0</number>
+          <number>1</number>
          </property>
          <widget class="QWidget" name="tab_3">
           <attribute name="title">
@@ -489,37 +489,13 @@
           </attribute>
           <layout class="QGridLayout" name="gridLayout_5">
            <item row="0" column="0">
-            <widget class="QTableWidget" name="tableWidget_2">
-             <column>
-              <property name="text">
-               <string>编号</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>节点名称</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>发送模式</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>发送序号</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>发送时间</string>
-              </property>
-             </column>
-             <column>
-              <property name="text">
-               <string>发送内容</string>
-              </property>
-             </column>
+            <widget class="QTableView" name="tableViewSend">
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>150</number>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
+             </attribute>
             </widget>
            </item>
           </layout>
@@ -533,6 +509,12 @@
             <widget class="QTableWidget" name="tableWidget">
              <attribute name="horizontalHeaderCascadingSectionResizes">
               <bool>false</bool>
+             </attribute>
+             <attribute name="horizontalHeaderDefaultSectionSize">
+              <number>150</number>
+             </attribute>
+             <attribute name="horizontalHeaderStretchLastSection">
+              <bool>true</bool>
              </attribute>
              <attribute name="verticalHeaderCascadingSectionResizes">
               <bool>false</bool>

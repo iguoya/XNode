@@ -9,10 +9,12 @@
 #include <iostream>
 #include <QStandardItemModel>
 #include <QMap>
-
+#include <string>
+#include <random>
 #include <nlohmann/json.hpp>
-using json = nlohmann::json;
 
+using json = nlohmann::json;
+using namespace std;
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -34,12 +36,15 @@ public:
 private slots:
     void on_pushButton_3_clicked();
     void readStatus();
+    void handleResult(QString result);
 
     void on_pushButton_clicked();
 
 private:
+    string generateMessage();
     Ui::MainWindow *ui;
-    QStandardItemModel model;
+    QStandardItemModel *model;
+    QStandardItemModel *sendModel;
     QProcess process;
 //    QVector<Host> hosts;
     MonitorService service;

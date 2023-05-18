@@ -13,7 +13,7 @@ public:
     void send(QString cmd, QString ip = "127.0.0.1", ushort port = 10000);
 
 signals:
-    void handleResult(QString result);
+    void resultReady(QString result);
 
 public slots:
 

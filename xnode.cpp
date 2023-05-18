@@ -47,7 +47,11 @@ void XNode::operator()(string name, uint16_t port)
                 continue;
             }
             if(command["type"] == "contact") {
-                vector<string> greets {R"({"type":"hello"})", R"({"type":"world"})", R"({"type":"guoya"})"};
+
+
+                vector<string> greets {R"({"content":"hello B","id":1,"receiver":"B","sender":"A","sequence":0,"time":"20230518104418_568"})",
+                                       R"({"content":"hello C","id":2,"receiver":"C","sender":"A","sequence":0,"time":"20230518104418_568"})",
+                                       R"({"content":"hello D","id":2,"receiver":"D","sender":"A","sequence":0,"time":"20230518104418_568"})"};
                 int i = 0;
                 for(auto server: command["contacts"]) {
 
@@ -55,31 +59,12 @@ void XNode::operator()(string name, uint16_t port)
                     Client* client = new Client;
                     client->connect(server["ip"], server["port"]);
                     client->receiver = server["name"];
-                    reporter.send(name+" 跟节点"+client->receiver+"建立连接，打招呼："+greets[i]);
+//                    reporter.send(name+" 跟节点"+client->receiver+"建立连接，打招呼："+greets[i]);
+                    reporter.send(greets[i]);
                     client->send(greets[i]);
                     clients.push_back(client);
                     ++i;
                 }
-
-                //                    string cmd = R"(
-                //                        {
-                //                        "group": [
-                //                            {"ip":"127.0.0.1", "port": 10000},
-                //                            {"ip":"127.0.0.1", "port": 10001},
-                //                            {"ip":"127.0.0.1", "port": 10002}
-                //                        ],
-                //                            "times": 10,
-                //                            "interval": 1000,
-                //                            "content": "hello world"
-                //                        }
-                //                    )";
-                //                    auto c = json::parse(cmd);
-                //    cout<<json::parse(cmd).dump(4)<<endl;
-                //cout<<c["content"]<<endl;
-
-
-
-
             } else if(command["type"] == "send") {
 
 
@@ -89,15 +74,17 @@ void XNode::operator()(string name, uint16_t port)
 
                         json message;
                         message["id"] = serialNumber;
+                        message["type"] = "message";
                         message["sender"] = name;
                         message["receiver"] = client->receiver;
                         message["sequence"] = i+1;
                         message["time"] = getCurrentTime();
-
                         message["content"] = command["content"];
 
-                        client->send(message.dump());
 
+
+                        client->send(message.dump());
+                        reporter.send(message.dump());
 
 
 

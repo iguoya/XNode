@@ -7,34 +7,33 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     connect(&process, &QProcess::readyRead, this, &MainWindow::readStatus);
-    connect(&service, &MonitorService::handleResult, ui->textEdit, &QTextEdit::append);
 
-    model.setHorizontalHeaderLabels({"执行者", "IP", "端口", "任务类型", "指令内容"});
-    ui->tableView->setModel(&model);
+    connect(&service, &MonitorService::resultReady, this, &MainWindow::handleResult);
 
-//    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-//    ui->tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);    //填充表格
-//     ui->tableView->horizontalHeader()->setSectionResizeMode(3, QHeaderView::ResizeToContents);
-//     ui->tableView->horizontalHeader()->setSectionResizeMode(4, QHeaderView::ResizeToContents);
-//    ui->tableView->resizeColumnsToContents();
+    model = new QStandardItemModel;
+    model->setHorizontalHeaderLabels({"执行者", "IP", "端口", "任务类型", "指令内容"});
+
+    ui->tableView->horizontalHeader()->setSortIndicatorShown(true);
+    ui->tableView->setModel(model);
+
+    sendModel = new QStandardItemModel;
+    sendModel->setHorizontalHeaderLabels({"序号", "发送节点", "目的节点",  "时间", "内容"});
+    ui->tableViewSend->setModel(sendModel);
 
     hosts = {
         {
             "A", {"127.0.0.1", 10000}
         },
         {
-            "B", {"127.0.0.1", 10001}
+            "B", {"127.0.0.1", 20001}
         },
         {
-            "C", {"127.0.0.1", 10002}
+            "C", {"127.0.0.1", 20002}
         },
         {
-            "D", {"127.0.0.1", 10003}
+            "D", {"127.0.0.1", 20003}
         }
     };
-    //    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-    //    ui->tableWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);//平均分配列宽
-    //    ui->treeWidget->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
 }
 
 MainWindow::~MainWindow()
@@ -46,8 +45,6 @@ MainWindow::~MainWindow()
 void MainWindow::on_pushButton_3_clicked()
 {
     auto s = contact("A", {"B", "C", "D"});
-
-
     service.send(QString::fromStdString(s));
     //    const QString cmd();
     //    const QStringList args;
@@ -76,12 +73,54 @@ void MainWindow::readStatus()
     ui->textEdit->append(process.readAll());
 }
 
+string MainWindow::generateMessage()
+{
+    int length = 500;// length: 产生字符串的长度
+    char tmp;							// tmp: 暂存一个随机数
+    string buffer;						// buffer: 保存返回值
+
+    // 下面这两行比较重要:
+    random_device rd;					// 产生一个 std::random_device 对象 rd
+    default_random_engine random(rd());	// 用 rd 初始化一个随机数发生器 random
+
+    for (int i = 0; i < length; i++) {
+        tmp = random() % 36;	// 随机一个小于 36 的整数，0-9、A-Z 共 36 种字符
+        if (tmp < 10) {			// 如果随机数小于 10，变换成一个阿拉伯数字的 ASCII
+            tmp += '0';
+        } else {				// 否则，变换成一个大写字母的 ASCII
+            tmp -= 10;
+            tmp += 'A';
+        }
+        buffer += tmp;
+    }
+    return buffer;
+}
+
+
+
+void MainWindow::handleResult(QString result)
+{
+    cout<<result.toStdString()<<endl;
+    json j = json::parse(result.toStdString());
+    sendModel->appendRow({
+                        new QStandardItem(QString::number(j["sequence"].get<int>())),
+                        new QStandardItem(QString::fromStdString(j["sender"].get<string>())),
+                        new QStandardItem(QString::fromStdString(j["receiver"].get<string>())),
+                        new QStandardItem(QString::fromStdString(j["time"].get<string>())),
+                        new QStandardItem(QString::fromStdString(j["content"].get<string>()))
+                    });
+}
+
 
 void MainWindow::on_pushButton_clicked()
 {
-
-    auto s = send_message(ui->textEdit->toPlainText(),
-                          ui->spinBox_times->value(), ui->spinBox_interval->value());
+    QString message;
+    if(ui->textEdit->toPlainText().isEmpty()) {
+        message = QString::fromStdString(generateMessage());
+    } else {
+        message = ui->textEdit->toPlainText();
+    }
+    auto s = send_message(message, ui->spinBox_times->value(), ui->spinBox_interval->value());
 
     service.send(QString::fromStdString(s));
 }
@@ -100,7 +139,7 @@ string MainWindow::contact(QString client, vector<QString> servers)
         j["contacts"][i]["port"] = hosts[servers[i]].second;
     }
     //    model.setHorizontalHeaderLabels({"执行者", "IP", "端口", "任务类型", "指令内容"});
-    model.appendRow({
+    model->appendRow({
                         new QStandardItem(client),
                         new QStandardItem(hosts[client].first),
                         new QStandardItem(QString::number(hosts[client].second)),
@@ -119,7 +158,7 @@ string MainWindow::send_message(QString content, size_t times, size_t interval)
     j["times"] = times;
     j["interval"] = interval;
 
-    model.appendRow({
+    model->appendRow({
                         new QStandardItem("A"),
                         new QStandardItem("127.0.0.1"),
                         new QStandardItem("10000"),

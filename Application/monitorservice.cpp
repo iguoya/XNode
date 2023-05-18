@@ -18,6 +18,6 @@ void MonitorService::readRead()
     QByteArray result;
     result.resize(server.bytesAvailable());
     server.readDatagram(result.data(),result.size());
-    handleResult(QString(result));
+    resultReady(QString(result));
 //    ui->lineEdit->setText(arr);
 }
